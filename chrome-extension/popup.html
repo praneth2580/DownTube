@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT Downloader</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body class="bg-gray-900 text-white p-5 w-80">
+
+    <h2 class="text-lg font-bold text-center mb-3">YouTube Downloader</h2>
+
+    <button id="downloadBtn" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Download Video
+    </button>
+
+    <div id="loader" class="hidden text-center mt-3">
+        <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-white mx-auto"></div>
+        <p class="text-sm mt-2">Downloading...</p>
+    </div>
+
+    <p id="message" class="text-center text-sm mt-3 hidden"></p>
+
+    <h3 class="text-md font-bold mt-5">Downloaded Videos</h3>
+    <ul id="downloadsList" class="mt-2 space-y-2"></ul>
+
+    <script src="popup.js"></script>
+</body>
+</html>
