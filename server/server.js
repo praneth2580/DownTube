@@ -71,8 +71,8 @@ downloadYtDlp(() => {
     });
     
     // API to open a video file
-    app.get("/open", (req, res) => {
-        const fileName = req.query.file;
+    app.get("/open/:file", (req, res) => {
+        const fileName = req.params.file;
         if (!fileName) return res.status(400).json({ error: "No file specified" });
     
         const filePath = path.join(downloadsPath, fileName);
