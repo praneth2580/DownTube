@@ -23,6 +23,7 @@
       "lib/yt-dlp.exe",
       "downloads/**"
     ],
+    "targets": ["node18-win-x64"],
     "outputPath": "bin/"
   }
 }
