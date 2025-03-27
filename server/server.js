@@ -90,11 +90,14 @@ downloadYtDlp(() => {
     
     // API to download a YouTube video
     app.post("/download", async (req, res) => {
+        console.log("Download Request Hit")
+
         const videoUrl = req.body.url;
         if (!videoUrl) return res.status(400).json({ error: "No URL provided" });
     
         const outputFilePath = path.join(downloadsPath, "%(title)s.%(ext)s");
         const command = `"${ytDlpPath}" -f bestvideo+bestaudio --merge-output-format mp4 -o "${outputFilePath}" ${videoUrl}`;
+        console.log(command)
     
         exec(command, (error, stdout, stderr) => {
             if (error) return res.status(500).json({ error: "Download failed", details: stderr });

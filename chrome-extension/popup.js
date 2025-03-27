@@ -39,29 +39,39 @@ document.addEventListener("DOMContentLoaded", function () {
     // Download Button Click
     downloadBtn.addEventListener("click", function () {
         // const videoUrl = prompt("Enter YouTube URL:");
-        const videoUrl = window.location.href;
-        if (!videoUrl) return;
-
-        showLoader();
-
-        fetch("http://localhost:4545/download", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ url: videoUrl })
-        })
-        .then(response => response.json())
-        .then(data => {
-            hideLoader();
-            if (data.error) {
-                updateMessage("Download Failed! " + data.error, false);
-            } else {
-                updateMessage("Download Successful!");
-                loadDownloadedFiles();
+        chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+            if (!tabs[0] || !tabs[0].url.includes("youtube.com/watch")) {
+                loader.classList.add("hidden");
+                message.classList.remove("hidden");
+                message.innerText = "❌ Not a valid YouTube video!";
+                return;
             }
-        })
-        .catch(error => {
-            hideLoader();
-            updateMessage("Error: " + error.message, false);
+
+            const videoUrl = tabs[0].url;
+
+            if (!videoUrl) return updateMessage("Could not detect YOUTUBE URL!", false);
+
+            showLoader();
+
+            fetch("http://localhost:4545/download", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ url: videoUrl })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    hideLoader();
+                    if (data.error) {
+                        updateMessage("Download Failed! " + data.error, false);
+                    } else {
+                        updateMessage("Download Successful!");
+                        loadDownloadedFiles();
+                    }
+                })
+                .catch(error => {
+                    hideLoader();
+                    updateMessage("Error: " + error.message, false);
+                });
         });
     });
 

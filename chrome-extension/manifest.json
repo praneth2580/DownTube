@@ -3,7 +3,7 @@
   "name": "YouTube Video Downloader",
   "version": "1.0",
   "description": "Detect and download YouTube videos using a local server.",
-  "permissions": ["scripting", "activeTab", "storage"],
+  "permissions": ["scripting", "activeTab", "storage", "tabs"],
   "host_permissions": ["https://www.youtube.com/*"],
   "background": {
     "service_worker": "background.js"
